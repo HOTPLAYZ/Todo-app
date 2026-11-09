@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f6f7f4">
+  <meta name="description" content="Taskwell is a thoughtful, focused to-do app for planning your day and keeping work moving.">
+  <title>Taskwell — Make room for what matters</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" aria-live="polite" aria-busy="true">
+    <div class="boot-screen"><span class="brand-mark"><i></i><i></i><i></i></span><span>Taskwell</span></div>
+  </div>
+
+  <dialog id="task-dialog" class="dialog task-dialog" aria-labelledby="task-dialog-title">
+    <form id="task-form" novalidate>
+      <div class="dialog-head">
+        <div>
+          <p class="eyebrow" id="task-dialog-kicker">YOUR WORKSPACE</p>
+          <h2 id="task-dialog-title">New task</h2>
+        </div>
+        <button type="button" class="icon-button" data-action="close-task-dialog" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+      <label class="field-label" for="task-title">Task name <span class="required-mark">*</span></label>
+      <input id="task-title" name="title" class="text-input" type="text" maxlength="100" placeholder="What needs to get done?" required autocomplete="off">
+      <p class="field-error" id="title-error"></p>
+
+      <label class="field-label" for="task-description">Description <span class="optional-mark">Optional</span></label>
+      <textarea id="task-description" name="description" class="text-input text-area" rows="3" maxlength="500" placeholder="Add a little context..."></textarea>
+
+      <div class="form-grid">
+        <div>
+          <label class="field-label" for="task-date">Due date <span class="optional-mark">Optional</span></label>
+          <input id="task-date" name="dueDate" class="text-input" type="date">
+        </div>
+        <div>
+          <label class="field-label" for="task-time">Time <span class="optional-mark">Optional</span></label>
+          <input id="task-time" name="dueTime" class="text-input" type="time">
+        </div>
+        <div>
+          <label class="field-label" for="task-priority">Priority</label>
+          <select id="task-priority" name="priority" class="text-input">
+            <option value="low">Low</option>
+            <option value="medium" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div>
+          <label class="field-label" for="task-category">Category</label>
+          <select id="task-category" name="category" class="text-input">
+            <option value="personal">Personal</option>
+            <option value="work">Work</option>
+            <option value="study">Study</option>
+            <option value="health">Health</option>
+            <option value="errands">Errands</option>
+          </select>
+        </div>
+      </div>
+      <label class="important-check"><input id="task-important" name="important" type="checkbox"><span class="fake-check"></span><span>Mark as important</span><span class="star-inline">☆</span></label>
+      <div class="dialog-actions">
+        <button type="button" class="button button-quiet" data-action="close-task-dialog">Cancel</button>
+        <button type="submit" class="button button-primary" id="task-save-button">Create task</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="confirm-dialog" class="dialog confirm-dialog" aria-labelledby="confirm-title">
+    <div class="confirm-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M10 11v6m4-6v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg></div>
+    <h2 id="confirm-title">Delete this task?</h2>
+    <p id="confirm-copy">This action cannot be undone.</p>
+    <div class="dialog-actions">
+      <button type="button" class="button button-quiet" data-action="close-confirm">Keep task</button>
+      <button type="button" class="button button-danger" data-action="confirm-delete">Delete task</button>
+    </div>
+  </dialog>
+
+  <div id="toast-region" class="toast-region" role="status" aria-live="polite"></div>
+  <input id="import-file" type="file" accept="application/json,.json" hidden>
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
